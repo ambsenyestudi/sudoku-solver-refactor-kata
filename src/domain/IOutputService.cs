@@ -1,6 +1,7 @@
 ﻿namespace SudokuSolver.Domain;
 public interface IOutputService
 {
-    public void WriteLine();
-    public void WriteLine(string message);
+    void WriteLine();
+    void WriteLine(string message);
+    void WriteLine(string template, params object[] values);
 }

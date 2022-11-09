@@ -10,4 +10,7 @@ public class OutputService : IOutputService
 
     public void WriteLine() =>
         Console.WriteLine(string.Empty);
+
+    public void WriteLine(string template, params object[] values) =>
+        Console.WriteLine(template, values);
 }

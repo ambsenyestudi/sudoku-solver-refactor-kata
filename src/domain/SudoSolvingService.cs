@@ -192,8 +192,8 @@ namespace SudokuSolver.Domain
             }
 
             outputService.WriteLine();
-            Console.WriteLine("Final look of the solved board:");
-            Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
+            outputService.WriteLine("Final look of the solved board:");
+            outputService.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
             #endregion
 
             #region Generate inital board from the completely solved one
@@ -241,13 +241,13 @@ namespace SudokuSolver.Domain
             }
 
             outputService.WriteLine();
-            Console.WriteLine("Starting look of the board to solve:");
-            Console.WriteLine(string.Join("\n", board.Select(s => new string(s)).ToArray()));
+            outputService.WriteLine("Starting look of the board to solve:");
+            outputService.WriteLine(string.Join("\n", board.Select(s => new string(s)).ToArray()));
             #endregion
 
             #region Prepare lookup structures that will be used in further execution
             outputService.WriteLine();
-            Console.WriteLine(new string('=', 80));
+            outputService.WriteLine(new string('=', 80));
             outputService.WriteLine();
 
             Dictionary<int, int> maskToOnesCount = new Dictionary<int, int>();
@@ -380,7 +380,7 @@ namespace SudokuSolver.Domain
                         candidateMasks[singleCandidateIndex] = 0;
                         changeMade = true;
 
-                        Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
+                        outputService.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
                     }
 
                     #endregion
@@ -483,7 +483,7 @@ namespace SudokuSolver.Domain
 
                             changeMade = true;
 
-                            Console.WriteLine(message);
+                            outputService.WriteLine(message);
                         }
                     }
 
@@ -546,7 +546,7 @@ namespace SudokuSolver.Domain
                                         value += 1;
                                     }
 
-                                    Console.WriteLine(
+                                    outputService.WriteLine(
                                         $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
 
                                     foreach (var cell in cells)
@@ -565,7 +565,7 @@ namespace SudokuSolver.Domain
                                         }
 
                                         string valuesReport = string.Join(", ", valuesToRemove.ToArray());
-                                        Console.WriteLine($"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
+                                        outputService.WriteLine($"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
 
                                         candidateMasks[cell.Index] &= ~group.Mask;
                                         stepChangeMade = true;
@@ -643,7 +643,7 @@ namespace SudokuSolver.Domain
 
                                 message.Append(" and other values cannot appear in those cells.");
 
-                                Console.WriteLine(message.ToString());
+                                outputService.WriteLine(message.ToString());
                             }
 
                             foreach (var cell in groupWithNMasks.CellsWithMask)
@@ -672,7 +672,7 @@ namespace SudokuSolver.Domain
                                 }
 
                                 message.Append($" cannot appear in cell ({cell.Row + 1}, {cell.Column + 1}).");
-                                Console.WriteLine(message.ToString());
+                                outputService.WriteLine(message.ToString());
 
                             }
                         }
@@ -973,7 +973,7 @@ namespace SudokuSolver.Domain
                                 board[rowToWrite][colToWrite] = (char)('0' + state[i]);
                         }
 
-                        Console.WriteLine($"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
+                        outputService.WriteLine($"Guessing that {digit1} and {digit2} are arbitrary in {description} (multiple solutions): Pick {finalState[index1]}->({row1 + 1}, {col1 + 1}), {finalState[index2]}->({row2 + 1}, {col2 + 1}).");
                     }
                 }
                 #endregion
@@ -981,7 +981,7 @@ namespace SudokuSolver.Domain
                 if (changeMade)
                 {
                     #region Print the board as it looks after one change was made to it
-                    Console.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
+                    outputService.WriteLine(string.Join(Environment.NewLine, board.Select(s => new string(s)).ToArray()));
                     string code =
                         string.Join(string.Empty, board.Select(s => new string(s)).ToArray())
                             .Replace("-", string.Empty)
@@ -989,7 +989,7 @@ namespace SudokuSolver.Domain
                             .Replace("|", string.Empty)
                             .Replace(".", "0");
 
-                    Console.WriteLine("Code: {0}", code);
+                    outputService.WriteLine("Code: {0}", code);
                     outputService.WriteLine();
                     #endregion
                 }
