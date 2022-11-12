@@ -2,7 +2,7 @@
 using SudokuSolver.Domain;
 using SudokuSolver.Infrastructure;
 
-var sudokuSolving = new SudoSolvingService(new OutputService());
+var sudokuSolving = new SudoSolvingService(new OutputService(), new RandomOutputService());
 
 sudokuSolving.Play();
 

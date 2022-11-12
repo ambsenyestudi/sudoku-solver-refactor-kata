@@ -1,14 +1,18 @@
-﻿using System.Text;
+﻿using SudokuSolver.Domain.Randomization;
+using System.Text;
 
 namespace SudokuSolver.Domain
 {
     public class SudoSolvingService
     {
         private readonly IOutputService outputService;
+        private readonly IRandomizationService randomizationService;
 
-        public SudoSolvingService(IOutputService outputService)
+        public SudoSolvingService(IOutputService outputService, 
+            IRandomizationService randomizationService)
         {
             this.outputService = outputService;
+            this.randomizationService = randomizationService;
         }
 
         public void Play()
@@ -107,7 +111,7 @@ namespace SudokuSolver.Domain
                                 break;
                             }
 
-                            int randomValue = rng.Next();
+                            int randomValue = randomizationService.Next();
 
                             if (bestCandidatesCount < 0 ||
                                 candidatesCount < bestCandidatesCount ||
@@ -212,7 +216,7 @@ namespace SudokuSolver.Domain
             while (removedPos < 9 * 9 - remainingDigits)
             {
                 int curRemainingDigits = positions.Length - removedPos;
-                int indexToPick = removedPos + rng.Next(curRemainingDigits);
+                int indexToPick = removedPos + randomizationService.Next(curRemainingDigits);
 
                 int row = positions[indexToPick] / 9;
                 int col = positions[indexToPick] % 9;
@@ -364,7 +368,7 @@ namespace SudokuSolver.Domain
 
                     if (singleCandidateIndices.Length > 0)
                     {
-                        int pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
+                        int pickSingleCandidateIndex = randomizationService.Next(singleCandidateIndices.Length);
                         int singleCandidateIndex = singleCandidateIndices[pickSingleCandidateIndex];
                         int candidateMask = candidateMasks[singleCandidateIndex];
                         int candidate = singleBitToIndex[candidateMask];
@@ -466,7 +470,7 @@ namespace SudokuSolver.Domain
 
                         if (candidates.Count > 0)
                         {
-                            int index = rng.Next(candidates.Count);
+                            int index = randomizationService.Next(candidates.Count);
                             string description = groupDescriptions.ElementAt(index);
                             int row = candidateRowIndices.ElementAt(index);
                             int col = candidateColIndices.ElementAt(index);
@@ -831,7 +835,7 @@ namespace SudokuSolver.Domain
                                             break;
                                         }
 
-                                        int randomValue = rng.Next();
+                                        int randomValue = randomizationService.Next();
 
                                         if (bestCandidatesCount < 0 ||
                                             candidatesCount < bestCandidatesCount ||
@@ -930,7 +934,7 @@ namespace SudokuSolver.Domain
 
                     if (stateIndex1.Any())
                     {
-                        int pos = rng.Next(stateIndex1.Count());
+                        int pos = randomizationService.Next(stateIndex1.Count());
                         int index1 = stateIndex1.ElementAt(pos);
                         int index2 = stateIndex2.ElementAt(pos);
                         int digit1 = value1.ElementAt(pos);

@@ -10,5 +10,8 @@
         }
         public int Next() =>
             rng.Next();
+
+        public int Next(int maxValue) =>
+            rng.Next(maxValue);
     }
 }

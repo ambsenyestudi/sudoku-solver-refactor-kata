@@ -3,5 +3,6 @@
     public interface IRandomizationService
     {
         int Next();
+        int Next(int curRemainingDigits);
     }
 }
