@@ -1,15 +1,15 @@
 ﻿using SudokuSolver.Domain.Randomization;
 
-namespace SudokuSolver.Infrastructure
+namespace SudokuSolver.Test.Helpers
 {
-    public class RandomOutputService: IRandomizationService
+    public class RandomOutputService : IRandomizationService
     {
         private const string FILE_NAME = "Random.txt";
         private readonly Random random = new Random();
 
         public RandomOutputService()
         {
-            if(File.Exists(FILE_NAME))
+            if (File.Exists(FILE_NAME))
             {
                 File.WriteAllText(FILE_NAME, string.Empty);
             }
@@ -21,8 +21,8 @@ namespace SudokuSolver.Infrastructure
 
         private int SaveToFile(int input)
         {
-            
-            using (StreamWriter sw = (File.Exists(FILE_NAME)) ? File.AppendText(FILE_NAME) : File.CreateText(FILE_NAME))
+
+            using (StreamWriter sw = File.Exists(FILE_NAME) ? File.AppendText(FILE_NAME) : File.CreateText(FILE_NAME))
             {
                 sw.WriteLine(input);
             }

@@ -1,8 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using SudokuSolver.Domain;
+using SudokuSolver.Domain.Randomization;
 using SudokuSolver.Infrastructure;
 
-var sudokuSolving = new SudoSolvingService(new OutputService(), new RandomOutputService());
+var sudokuSolving = new SudoSolvingService(new OutputService(), new RandomizationService());
 
 sudokuSolving.Play();
 
